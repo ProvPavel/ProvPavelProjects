@@ -15,6 +15,7 @@ class Window(QWidget):
         self.result = QLineEdit(self)
         self.result.move(25, 25)
         self.result.resize(375, 75)
+        self.result.setDisabled(True)
 
         self.button_7 = QPushButton(self)
         self.button_7.move(25, 125)
