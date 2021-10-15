@@ -1,22 +1,49 @@
-ABC = {"й": "j", "ц": "c", "у": "u", "к": "k", "е": "e", "н": "n",
-       "г": "g", "ш": "sh", "щ": "shh", "з": "z", "х": "h", "ъ": "#",
-       "ф": "f", "ы": "y", "в": "v", "а": "a", "п": "p", "р": "r",
-       "о": "o", "л": "l", "д": "d", "ж": "zh", "э": "je", "я": "ya",
-       "ч": "ch", "с": "s", "м": "m", "и": "i", "т": "t", "ь": "'",
-       "б": "b", "ю": "ju", "ё": "jo",
-       "Й": "J", "Ц": "C", "У": "U", "К": "K", "Е": "E", "Н": "N",
-       "Г": "G", "Ш": "Sh", "Щ": "Shh", "З": "Z", "Х": "H", "Ъ": "#",
-       "Ф": "F", "Ы": "Y", "В": "V", "А": "A", "П": "P", "Р": "R",
-       "О": "O", "Л": "L", "Д": "D", "Ж": "Zh", "Э": "Je", "Я": "Ya",
-       "Ч": "Ch", "С": "S", "М": "M", "И": "I", "Т": "T", "Ь": "'",
-       "Б": "B", "Ю": "Ju", "Ё": "Jo"}
-f1 = open('cyrillic.txt', 'r')
-f2 = open('transliteration.txt', 'a')
-a = f1.read()
-for i in a:
-    if i in ABC.keys():
-        f2.write(ABC[i])
-    else:
-        f2.write(i)
-f1.close()
-f2.close()
+from random import choice
+from PyQt5.QtWidgets import QWidget, QLineEdit, QPushButton, QApplication
+import sys
+
+
+class Window(QWidget):
+    def __init__(self):
+        super(Window, self).__init__()
+
+        self.setWindowTitle('Случайная строка')
+        self.setGeometry(300, 300, 270, 50)
+
+        self.input_value = QLineEdit(self)
+        self.input_value.move(10, 10)
+        self.input_value.resize(100, 30)
+
+        self.button = QPushButton(self)
+        self.button.setText('->')
+        self.button.move(120, 10)
+        self.button.resize(30, 30)
+        self.button.clicked.connect(self.convert)
+
+        self.output_value = QLineEdit(self)
+        self.output_value.move(160, 10)
+        self.output_value.resize(100, 30)
+
+    def convert(self):
+        if self.button.text() == '->':
+            self.button.setText('<-')
+            self.output_value.setText(self.input_value.text())
+            self.input_value.setText('')
+        else:
+            self.button.setText('->')
+            self.input_value.setText(self.output_value.text())
+            self.output_value.setText('')
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    wnd = Window()
+    wnd.show()
+    app.exec()
+    sys.exit(app.exec())
+
+f = open('lines.txt')
+data = f.readlines()
+if data:
+    print(choice(data))
+f.close()
