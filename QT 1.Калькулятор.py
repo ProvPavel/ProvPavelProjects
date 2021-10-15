@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QWidget, QApplication, QLineEdit, QComboBox,\
+from PyQt6.QtWidgets import QWidget, QApplication, QLineEdit, QComboBox, \
     QPushButton, QLCDNumber, QCheckBox, QLabel
 
 import sys
@@ -119,57 +119,61 @@ class Window(QWidget):
         self.button_res.clicked.connect(self.count)
 
     def count(self):
-        a = self.sender()
-        if a == self.button_7:
-            self.result.setText(self.result.text() + '7')
+        try:
+            a = self.sender()
+            if a == self.button_7:
+                self.result.setText(self.result.text() + '7')
 
-        elif a == self.button_8:
-            self.result.setText(self.result.text() + '8')
+            elif a == self.button_8:
+                self.result.setText(self.result.text() + '8')
 
-        elif a == self.button_9:
-            self.result.setText(self.result.text() + '9')
+            elif a == self.button_9:
+                self.result.setText(self.result.text() + '9')
 
-        elif a == self.res_1:
-            self.result.setText(self.result.text() + '+')
+            elif a == self.res_1:
+                self.result.setText(self.result.text() + '+')
 
-        elif a == self.button_4:
-            self.result.setText(self.result.text() + '4')
+            elif a == self.button_4:
+                self.result.setText(self.result.text() + '4')
 
-        elif a == self.button_5:
-            self.result.setText(self.result.text() + '5')
+            elif a == self.button_5:
+                self.result.setText(self.result.text() + '5')
 
-        elif a == self.button_6:
-            self.result.setText(self.result.text() + '6')
+            elif a == self.button_6:
+                self.result.setText(self.result.text() + '6')
 
-        elif a == self.res_2:
-            self.result.setText(self.result.text() + '-')
+            elif a == self.res_2:
+                self.result.setText(self.result.text() + '-')
 
-        elif a == self.button_1:
-            self.result.setText(self.result.text() + '1')
+            elif a == self.button_1:
+                self.result.setText(self.result.text() + '1')
 
-        elif a == self.button_2:
-            self.result.setText(self.result.text() + '2')
+            elif a == self.button_2:
+                self.result.setText(self.result.text() + '2')
 
-        elif a == self.button_3:
-            self.result.setText(self.result.text() + '3')
+            elif a == self.button_3:
+                self.result.setText(self.result.text() + '3')
 
-        elif a == self.res_3:
-            self.result.setText(self.result.text() + '*')
+            elif a == self.res_3:
+                self.result.setText(self.result.text() + '*')
 
-        elif a == self.button_C:
-            self.result.setText('')
+            elif a == self.button_C:
+                self.result.setText('')
 
-        elif a == self.button_0:
-            self.result.setText(self.result.text() + '0')
+            elif a == self.button_0:
+                self.result.setText(self.result.text() + '0')
 
-        elif a == self.button_point:
-            self.result.setText(self.result.text() + '.')
+            elif a == self.button_point:
+                self.result.setText(self.result.text() + '.')
 
-        elif a == self.res_4:
-            self.result.setText(self.result.text() + '/')
+            elif a == self.res_4:
+                self.result.setText(self.result.text() + '/')
 
-        elif a == self.button_res:
-            self.result.setText(str(eval(self.result.text())))
+            elif a == self.button_res:
+                self.result.setText(str(eval(self.result.text())))
+
+        except Exception:
+            self.result.setText('Error')
 
 
 if __name__ == '__main__':
