@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QApplication, QLineEdit, QComboBox,\
+from PyQt6.QtWidgets import QWidget, QApplication, QLineEdit, QComboBox,\
     QPushButton, QLCDNumber, QCheckBox, QLabel
 
 import sys

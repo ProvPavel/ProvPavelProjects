@@ -1,5 +1,5 @@
 from random import choice
-from PyQt5.QtWidgets import QWidget, QLineEdit, QPushButton, QApplication
+from PyQt6.QtWidgets import QWidget, QLineEdit, QPushButton, QApplication
 import sys
 
 
