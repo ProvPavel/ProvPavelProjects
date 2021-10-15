@@ -9,82 +9,167 @@ class Window(QWidget):
         super(Window, self).__init__()
 
         self.setWindowTitle('Калькулятор')
-        self.setGeometry(400, 100, 500, 800)
-        self.setFixedSize(500, 800)
+        self.setGeometry(400, 100, 100, 100)
+        self.setFixedSize(425, 625)
 
         self.result = QLineEdit(self)
         self.result.move(25, 25)
-        self.result.resize(450, 175)
+        self.result.resize(375, 75)
 
-        self.text_1 = QLabel(self)
-        self.text_1.move(45, 15)
-        self.text_1.resize(75, 15)
-        self.text_1.setText('Павел')
+        self.button_7 = QPushButton(self)
+        self.button_7.move(25, 125)
+        self.button_7.resize(75, 75)
+        self.button_7.setText('7')
+        self.button_7.clicked.connect(self.count)
 
-        self.text_2 = QLabel(self)
-        self.text_2.move(45, 45)
-        self.text_2.resize(75, 15)
-        self.text_2.setText('Андрей')
+        self.button_8 = QPushButton(self)
+        self.button_8.move(125, 125)
+        self.button_8.resize(75, 75)
+        self.button_8.setText('8')
+        self.button_8.clicked.connect(self.count)
 
-        self.text_3 = QLabel(self)
-        self.text_3.move(45, 75)
-        self.text_3.resize(75, 15)
-        self.text_3.setText('Илья')
+        self.button_9 = QPushButton(self)
+        self.button_9.move(225, 125)
+        self.button_9.resize(75, 75)
+        self.button_9.setText('9')
+        self.button_9.clicked.connect(self.count)
 
-        self.text_4 = QLabel(self)
-        self.text_4.move(45, 105)
-        self.text_4.resize(75, 15)
-        self.text_4.setText('Арсений')
+        self.res_1 = QPushButton(self)
+        self.res_1.move(325, 125)
+        self.res_1.resize(75, 75)
+        self.res_1.setText('+')
+        self.res_1.clicked.connect(self.count)
 
-        self.output_value_1 = QLineEdit(self)
-        self.output_value_1.move(135, 15)
-        self.output_value_1.resize(75, 15)
-        self.output_value_1.setText('Пришёл')
-        self.output_value_1.hide()
+        self.button_4 = QPushButton(self)
+        self.button_4.move(25, 225)
+        self.button_4.resize(75, 75)
+        self.button_4.setText('4')
+        self.button_4.clicked.connect(self.count)
 
-        self.output_value_2 = QLineEdit(self)
-        self.output_value_2.move(135, 45)
-        self.output_value_2.resize(75, 15)
-        self.output_value_2.setText('Пришёл')
-        self.output_value_2.hide()
+        self.button_5 = QPushButton(self)
+        self.button_5.move(125, 225)
+        self.button_5.resize(75, 75)
+        self.button_5.setText('5')
+        self.button_5.clicked.connect(self.count)
 
-        self.output_value_3 = QLineEdit(self)
-        self.output_value_3.move(135, 75)
-        self.output_value_3.resize(75, 15)
-        self.output_value_3.setText('Пришёл')
-        self.output_value_3.hide()
+        self.button_6 = QPushButton(self)
+        self.button_6.move(225, 225)
+        self.button_6.resize(75, 75)
+        self.button_6.setText('6')
+        self.button_6.clicked.connect(self.count)
 
-        self.output_value_4 = QLineEdit(self)
-        self.output_value_4.move(135, 105)
-        self.output_value_4.resize(75, 15)
-        self.output_value_4.setText('Пришёл')
-        self.output_value_4.hide()
+        self.res_2 = QPushButton(self)
+        self.res_2.move(325, 225)
+        self.res_2.resize(75, 75)
+        self.res_2.setText('-')
+        self.res_2.clicked.connect(self.count)
 
-    def convert(self):
+        self.button_1 = QPushButton(self)
+        self.button_1.move(25, 325)
+        self.button_1.resize(75, 75)
+        self.button_1.setText('1')
+        self.button_1.clicked.connect(self.count)
+
+        self.button_2 = QPushButton(self)
+        self.button_2.move(125, 325)
+        self.button_2.resize(75, 75)
+        self.button_2.setText('2')
+        self.button_2.clicked.connect(self.count)
+
+        self.button_3 = QPushButton(self)
+        self.button_3.move(225, 325)
+        self.button_3.resize(75, 75)
+        self.button_3.setText('3')
+        self.button_3.clicked.connect(self.count)
+
+        self.res_3 = QPushButton(self)
+        self.res_3.move(325, 325)
+        self.res_3.resize(75, 75)
+        self.res_3.setText('*')
+        self.res_3.clicked.connect(self.count)
+
+        self.button_C = QPushButton(self)
+        self.button_C.move(25, 425)
+        self.button_C.resize(75, 75)
+        self.button_C.setText('C')
+        self.button_C.clicked.connect(self.count)
+
+        self.button_0 = QPushButton(self)
+        self.button_0.move(125, 425)
+        self.button_0.resize(75, 75)
+        self.button_0.setText('0')
+        self.button_0.clicked.connect(self.count)
+
+        self.button_point = QPushButton(self)
+        self.button_point.move(225, 425)
+        self.button_point.resize(75, 75)
+        self.button_point.setText('.')
+        self.button_point.clicked.connect(self.count)
+
+        self.res_4 = QPushButton(self)
+        self.res_4.move(325, 425)
+        self.res_4.resize(75, 75)
+        self.res_4.setText('/')
+        self.res_4.clicked.connect(self.count)
+
+        self.button_res = QPushButton(self)
+        self.button_res.move(25, 525)
+        self.button_res.resize(375, 75)
+        self.button_res.setText('=')
+        self.button_res.clicked.connect(self.count)
+
+    def count(self):
         a = self.sender()
-        if a == self.result:
-            if self.output_value_1.isHidden():
-                self.output_value_1.show()
-            else:
-                self.output_value_1.hide()
+        if a == self.button_7:
+            self.result.setText(self.result.text() + '7')
 
-        if a == self.check_box_2:
-            if self.output_value_2.isHidden():
-                self.output_value_2.show()
-            else:
-                self.output_value_2.hide()
+        elif a == self.button_8:
+            self.result.setText(self.result.text() + '8')
 
-        if a == self.check_box_3:
-            if self.output_value_3.isHidden():
-                self.output_value_3.show()
-            else:
-                self.output_value_3.hide()
+        elif a == self.button_9:
+            self.result.setText(self.result.text() + '9')
 
-        if a == self.check_box_4:
-            if self.output_value_4.isHidden():
-                self.output_value_4.show()
-            else:
-                self.output_value_4.hide()
+        elif a == self.res_1:
+            self.result.setText(self.result.text() + '+')
+
+        elif a == self.button_4:
+            self.result.setText(self.result.text() + '4')
+
+        elif a == self.button_5:
+            self.result.setText(self.result.text() + '5')
+
+        elif a == self.button_6:
+            self.result.setText(self.result.text() + '6')
+
+        elif a == self.res_2:
+            self.result.setText(self.result.text() + '-')
+
+        elif a == self.button_1:
+            self.result.setText(self.result.text() + '1')
+
+        elif a == self.button_2:
+            self.result.setText(self.result.text() + '2')
+
+        elif a == self.button_3:
+            self.result.setText(self.result.text() + '3')
+
+        elif a == self.res_3:
+            self.result.setText(self.result.text() + '*')
+
+        elif a == self.button_C:
+            self.result.setText('')
+
+        elif a == self.button_0:
+            self.result.setText(self.result.text() + '0')
+
+        elif a == self.button_point:
+            self.result.setText(self.result.text() + '.')
+
+        elif a == self.res_4:
+            self.result.setText(self.result.text() + '/')
+
+        elif a == self.button_res:
+            self.result.setText(str(eval(self.result.text())))
 
 
 if __name__ == '__main__':
