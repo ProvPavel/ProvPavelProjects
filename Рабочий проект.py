@@ -47,3 +47,4 @@ data = f.readlines()
 if data:
     print(choice(data))
 f.close()
+
