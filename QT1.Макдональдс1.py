@@ -13,15 +13,19 @@ class Window(QWidget):
 
         self.check_box_1 = QCheckBox(self)
         self.check_box_1.move(15, 15)
+        self.check_box_1.clicked.connect(self.convert)
 
         self.check_box_2 = QCheckBox(self)
         self.check_box_2.move(15, 45)
+        self.check_box_2.clicked.connect(self.convert)
 
         self.check_box_3 = QCheckBox(self)
         self.check_box_3.move(15, 75)
+        self.check_box_3.clicked.connect(self.convert)
 
         self.check_box_4 = QCheckBox(self)
         self.check_box_4.move(15, 105)
+        self.check_box_4.clicked.connect(self.convert)
 
         self.text_1 = QLabel(self)
         self.text_1.move(45, 15)
@@ -53,8 +57,36 @@ class Window(QWidget):
         self.result.move(15, 180)
         self.result.resize(135, 165)
 
+        self.res = []
+
     def convert(self):
-        pass
+        sender = self.sender()
+        if sender == self.check_box_1:
+            if self.text_1.text() in self.res:
+                del self.res[self.res.index(self.text_1.text())]
+            else:
+                self.res.append(self.text_1.text())
+        elif sender == self.check_box_2:
+            if self.text_2.text() in self.res:
+                del self.res[self.res.index(self.text_2.text())]
+            else:
+                self.res.append(self.text_2.text())
+        elif sender == self.check_box_3:
+            if self.text_3.text() in self.res:
+                del self.res[self.res.index(self.text_3.text())]
+            else:
+                self.res.append(self.text_3.text())
+        elif sender == self.check_box_4:
+            if self.text_4.text() in self.res:
+                del self.res[self.res.index(self.text_4.text())]
+            else:
+                self.res.append(self.text_4.text())
+        elif sender == self.button:
+            self.result.setPlainText('')
+            self.result.insertPlainText('Ваш заказ:\n')
+            self.result.insertPlainText('\n')
+            for e in self.res:
+                self.result.insertPlainText(f'{e}\n')
 
 
 if __name__ == '__main__':
