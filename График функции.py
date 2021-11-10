@@ -1,6 +1,5 @@
 from PyQt6.QtWidgets import QWidget, QApplication, QLineEdit, QPushButton, QLabel
 from PyQt6.QtGui import QPainter, QColor, QPen
-from PyQt6.QtCore import Qt
 import sys
 
 
@@ -10,60 +9,82 @@ class Window(QWidget):
 
         self.setWindowTitle('График функции')
         self.setGeometry(0, 0, 1301, 1001)
-        self.setFixedSize(1301, 1001)
+        self.setFixedSize(1241, 921)
 
-        self.start = -500
-        self.stop = 500
+        self.start = -450
+        self.stop = 450
+        self.flag = False
+        self.points = []
 
         self.text_1 = QLabel(self)
-        self.text_1.move(1021, 10)
+        self.text_1.move(931, 10)
         self.text_1.resize(20, 20)
-        self.text_1.setText('y=')
+        self.text_1.setText('y =')
 
         self.FUNCTION = QLineEdit(self)
-        self.FUNCTION.move(1041, 10)
-        self.FUNCTION.resize(260, 20)
+        self.FUNCTION.move(951, 10)
+        self.FUNCTION.resize(120, 20)
+        self.FUNCTION.setText('x')
 
         self.text_2 = QLabel(self)
-        self.text_2.move(1021, 40)
-        self.text_2.resize(20, 20)
-        self.text_2.setText('ZOOM=')
+        self.text_2.move(931, 40)
+        self.text_2.resize(50, 20)
+        self.text_2.setText('ZOOM =')
 
         self.ZOOM = QLineEdit(self)
-        self.ZOOM.move(1041, 40)
-        self.ZOOM.resize(260, 20)
+        self.ZOOM.move(981, 40)
+        self.ZOOM.resize(90, 20)
         self.ZOOM.setText('1')
 
         self.button = QPushButton(self)
-        self.button.move(1021, 70)
-        self.button.resize(270, 20)
+        self.button.move(931, 70)
+        self.button.resize(140, 20)
         self.button.setText('DRAW')
-        self.button.clicked.connect(self.paintEvent)
+        self.button.clicked.connect(self.help)
 
-    def paintEvent(self):
-        qp = QPainter()
-        qp.begin(self)
-        qp.setPen(Qt.black)
-        qp.drawLine(10, 511, 1011, 511)
-        qp.drawLine(511, 10, 511, 1011)
-        qp.setPen(Qt.red)
+    def paintEvent(self, event):
+        if self.flag:
+            qp = QPainter(self)
+            qp.begin(self)
+            self.drawing(qp)
+            qp.end()
+            self.flag = False
+            self.points = []
+
+    def help(self):
+        self.flag = True
+        self.update()
+
+    def drawing(self, qp):
+        qp.setPen(QColor(0, 0, 0))
+        qp.drawLine(10, 461, 911, 461)
+        qp.drawLine(461, 10, 461, 911)
+        qp.setPen(QColor(255, 0, 0))
         x = self.start / float(self.ZOOM.text())
         while x <= self.stop / float(self.ZOOM.text()):
             try:
                 y = self.f(str(x))
-                qp.drawPoint(x + 510, y + 510)
+                a = self.ball(x * float(self.ZOOM.text()))
+                b = self.ball(y * float(self.ZOOM.text()))
+                if self.points:
+                    qp.drawLine(self.points[-1][0] * int(self.ZOOM.text()) + 461,
+                                461 - self.points[-1][1] * int(self.ZOOM.text()),
+                                a + 461, 461 - b)
+                    self.points.append([a, b])
+                else:
+                    self.points.append([a, b])
             except Exception:
                 pass
             finally:
                 x += 1 / float(self.ZOOM.text())
-        qp.end()
 
     def f(self, x):
-        r = self.FUNCTION.text()
-        t = eval(r.replace('x', f'({x})'))
-        if t >= 0:
-            return int(t + 0.5)
-        return int(t - 0.5)
+        return eval(self.FUNCTION.text().replace('x', f'({x})'))
+
+    def ball(self, a):
+        if a >= 0:
+            return int(a + 0.5)
+        return int(a - 0.5)
 
 
 if __name__ == '__main__':
