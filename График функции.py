@@ -1,6 +1,11 @@
-from PyQt6.QtWidgets import QWidget, QApplication, QLineEdit, QPushButton, QLabel
-from PyQt6.QtGui import QPainter, QColor, QPen
 import sys
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QLineEdit
+from PyQt6.QtWidgets import QPushButton
+from PyQt6.QtWidgets import QLabel
+from PyQt6.QtGui import QPainter
+from PyQt6.QtGui import QColor
 
 
 class Window(QWidget):
@@ -15,38 +20,41 @@ class Window(QWidget):
         self.stop = 450
         self.flag = False
         self.points = []
+        self.colors = [[255, 0, 255], [128, 0, 128], [255, 0, 0], [128, 0, 0],
+                       [128, 128, 128], [128, 128, 0], [0, 255, 0], [0, 128, 0],
+                       [0, 255, 255], [0, 128, 128], [0, 0, 255], [0, 0, 128]]
 
         self.text_1 = QLabel(self)
         self.text_1.move(931, 10)
         self.text_1.resize(40, 20)
-        self.text_1.setText('f(x) =')
+        self.text_1.setText('f1(x) =')
 
         self.function_1 = QLineEdit(self)
         self.function_1.move(971, 10)
         self.function_1.resize(100, 20)
 
         self.text_2 = QLabel(self)
-        self.text_2.move(931, 50)
+        self.text_2.move(931, 40)
         self.text_2.resize(40, 20)
-        self.text_2.setText('g(x) =')
+        self.text_2.setText('f2(x) =')
 
         self.function_2 = QLineEdit(self)
-        self.function_2.move(971, 50)
+        self.function_2.move(971, 40)
         self.function_2.resize(100, 20)
 
         self.text_zoom = QLabel(self)
-        self.text_zoom.move(931, 80)
+        self.text_zoom.move(931, 70)
         self.text_zoom.resize(50, 20)
         self.text_zoom.setText('ZOOM =')
 
         self.zoom = QLineEdit(self)
-        self.zoom.move(981, 80)
+        self.zoom.move(981, 70)
         self.zoom.resize(90, 20)
         self.zoom.setText('100')
 
         self.button = QPushButton(self)
-        self.button.move(931, 110)
-        self.button.resize(140, 20)
+        self.button.move(931, 100)
+        self.button.resize(140, 50)
         self.button.setText('DRAW')
         self.button.clicked.connect(self.help)
 
@@ -67,7 +75,7 @@ class Window(QWidget):
         self.update()
 
     def drawing(self, qp, name_of_function):
-        if self.zoom.text() != '0':
+        try:
             qp.setPen(QColor(255, 0, 0))
             x = self.start / float(self.zoom.text())
             while x <= self.stop / float(self.zoom.text()):
@@ -85,7 +93,9 @@ class Window(QWidget):
                     self.points = []
                 finally:
                     x += 1 / float(self.zoom.text())
-        self.points = []
+            self.points = []
+        except Exception:
+            pass
 
     def f(self, x, name_of_function):
         return eval(name_of_function.text().replace('x', f'({x})'))
