@@ -1,4 +1,5 @@
 import sys
+from math import log, cos, sin, tan, sqrt, pi, e
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtWidgets import QLineEdit
