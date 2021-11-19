@@ -66,8 +66,8 @@ class Window(QWidget):
             qp.setPen(QColor(0, 0, 0))
             qp.drawLine(10, 461, 911, 461)
             qp.drawLine(461, 10, 461, 911)
-            self.drawing(qp, self.function_1)
-            self.drawing(qp, self.function_2)
+            self.drawing(qp, self.function_1.text())
+            self.drawing(qp, self.function_2.text())
             qp.end()
             self.flag = False
 
@@ -99,7 +99,7 @@ class Window(QWidget):
             pass
 
     def f(self, x, name_of_function):
-        return eval(name_of_function.text().replace('x', f'({x})'))
+        return eval(name_of_function.replace('x', f'({x})'))
 
     def ball(self, a):
         if a >= 0:
