@@ -17,8 +17,14 @@ class Window(QWidget):
         self.setGeometry(100, 50, 1081, 921)
         self.setFixedSize(1081, 921)
 
-        self.start = -450
-        self.stop = 450
+        self.new_zoom = QLineEdit(self)
+        self.new_zoom.move(981, 70)
+        self.new_zoom.resize(90, 20)
+        self.new_zoom.setText('-450;450')
+
+        self.start = int(self.new_zoom.text().split(';')[0])
+        self.stop = int(self.new_zoom.text().split(';')[1])
+
         self.flag = False
         self.points = []
         self.colors = [[255, 0, 255], [128, 0, 128], [255, 0, 0], [128, 0, 0],
@@ -48,19 +54,16 @@ class Window(QWidget):
         self.text_zoom.resize(50, 20)
         self.text_zoom.setText('ZOOM =')
 
-        self.zoom = QLineEdit(self)
-        self.zoom.move(981, 70)
-        self.zoom.resize(90, 20)
-        self.zoom.setText('100')
-
-        self.button = QPushButton(self)
-        self.button.move(931, 100)
-        self.button.resize(140, 50)
-        self.button.setText('DRAW')
-        self.button.clicked.connect(self.help)
+        self.button_draw = QPushButton(self)
+        self.button_draw.move(931, 100)
+        self.button_draw.resize(140, 50)
+        self.button_draw.setText('DRAW')
+        self.button_draw.clicked.connect(self.help)
 
     def paintEvent(self, event):
         if self.flag:
+            self.start = int(self.new_zoom.text().split(';')[0])
+            self.stop = int(self.new_zoom.text().split(';')[1])
             qp = QPainter(self)
             qp.begin(self)
             qp.setPen(QColor(0, 0, 0))
@@ -78,28 +81,30 @@ class Window(QWidget):
     def drawing(self, qp, name_of_function):
         try:
             qp.setPen(QColor(255, 0, 0))
-            x = self.start / float(self.zoom.text())
-            while x <= self.stop / float(self.zoom.text()):
+            x = self.start
+            while x <= self.stop:
                 try:
-                    y = self.f(str(x), name_of_function)
-                    a = self.ball(x * float(self.zoom.text()))
-                    b = self.ball(y * float(self.zoom.text()))
+                    y = self.f(x, name_of_function)
+                    a = self.ball(x * float(900 / (self.stop - self.start)))
+                    b = self.ball(y * float(900 / (self.stop - self.start)))
                     if self.points:
-                        qp.drawLine(self.points[-1][0] + 461, 461 - self.points[-1][1],
-                                    a + 461, 461 - b)
+                        qp.drawLine(self.points[-1][0] + 461,  # (self.stop - self.start) // 2 + 10
+                                    461 - self.points[-1][1],
+                                    a + 461,
+                                    461 - b)
                         self.points.append([a, b])
                     else:
                         self.points.append([a, b])
                 except Exception:
                     self.points = []
                 finally:
-                    x += 1 / float(self.zoom.text())
+                    x += (self.stop - self.start) / 900
             self.points = []
         except Exception:
             pass
 
     def f(self, x, name_of_function):
-        return eval(name_of_function.replace('x', f'({x})'))
+        return eval(name_of_function.replace('x', f'({str(x)})'))
 
     def ball(self, a):
         if a >= 0:
