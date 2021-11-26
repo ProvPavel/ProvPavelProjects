@@ -22,6 +22,10 @@ class Window(QWidget):
         self.new_zoom.resize(90, 20)
         self.new_zoom.setText('-450;450')
 
+        self.coords = QLabel(self)
+        self.coords.setText("Координаты: None, None")
+        self.coords.move(30, 30)
+
         self.start = int(self.new_zoom.text().split(';')[0])
         self.stop = int(self.new_zoom.text().split(';')[1])
 
@@ -77,6 +81,9 @@ class Window(QWidget):
     def help(self):
         self.flag = True
         self.update()
+
+    def mouseMoveEvent(self, event):
+        self.coords.setText(f"Координаты: {event.x()}, {event.y()}")
 
     def drawing(self, qp, name_of_function):
         try:
