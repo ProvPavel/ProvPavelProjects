@@ -9,7 +9,7 @@ if __name__ == '__main__':
     try:
         input_value = input().split()
         w, hue = int(input_value[0]), int(input_value[1])
-        if w > 100 or w < 0 or w % 4 != 0 or hue > 360 or hue > 0:
+        if w > 100 or w < 0 or w % 4 != 0 or hue > 360 or hue < 0:
             raise Error
         color_1 = pygame.Color(0, 0, 0)
         color_2 = pygame.Color(0, 0, 0)
