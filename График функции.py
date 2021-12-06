@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QApplication
 from PyQt6.QtWidgets import QLineEdit
 from PyQt6.QtWidgets import QPushButton
 from PyQt6.QtWidgets import QLabel
-from PyQt6.QtGui import QPainter
+from PyQt6.QtGui import QPainter, QMouseEvent
 from PyQt6.QtGui import QColor
 
 
@@ -14,7 +14,7 @@ class Window(QWidget):
         super(Window, self).__init__()
 
         self.setWindowTitle('График функции')
-        self.setGeometry(100, 50, 1081, 921)
+        self.setGeometry(0, 0, 1081, 921)
         self.setFixedSize(1081, 921)
 
         self.new_zoom = QLineEdit(self)
@@ -23,8 +23,10 @@ class Window(QWidget):
         self.new_zoom.setText('-450;450')
 
         self.coords = QLabel(self)
-        self.coords.setText("Координаты: None, None")
-        self.coords.move(30, 30)
+        self.coords.setText('Координаты: None, None')
+        self.coords.move(10, 10)
+        self.coords.resize(125, 20)
+        self.setMouseTracking(True)
 
         self.start = int(self.new_zoom.text().split(';')[0])
         self.stop = int(self.new_zoom.text().split(';')[1])
@@ -82,8 +84,8 @@ class Window(QWidget):
         self.flag = True
         self.update()
 
-    def mouseMoveEvent(self, event):
-        self.coords.setText(f"Координаты: {event.x()}, {event.y()}")
+    def mouseMoveEvent(self, event: QMouseEvent):
+        self.coords.setText(f'Координаты: {str(event.pos())[:-1:].split("(")[1]}')
 
     def drawing(self, qp, name_of_function):
         try:
