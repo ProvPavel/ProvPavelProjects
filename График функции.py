@@ -25,7 +25,7 @@ class Window(QWidget):
         self.coords = QLabel(self)
         self.coords.setText('Координаты: None, None')
         self.coords.move(10, 10)
-        self.coords.resize(125, 20)
+        self.coords.resize(150, 20)
         self.setMouseTracking(True)
 
         self.start = int(self.new_zoom.text().split(';')[0])
@@ -85,7 +85,11 @@ class Window(QWidget):
         self.update()
 
     def mouseMoveEvent(self, event: QMouseEvent):
-        self.coords.setText(f'Координаты: {str(event.pos())[:-1:].split("(")[1]}')
+        cx = int(str(event.pos())[:-1:].split("(")[1].split(",")[0])
+        cy = int(str(event.pos())[:-1:].split("(")[1].split(",")[1])
+        self.coords.setText(f'Координаты: '
+                            f'{round((cx - 461) * ((self.stop - self.start) / 900), 3)};'
+                            f'{round((461 - cy) * ((self.stop - self.start) / 900), 3)}')
 
     def drawing(self, qp, name_of_function):
         try:
@@ -94,8 +98,8 @@ class Window(QWidget):
             while x <= self.stop:
                 try:
                     y = self.f(x, name_of_function)
-                    a = self.ball(x * float(900 / (self.stop - self.start)))
-                    b = self.ball(y * float(900 / (self.stop - self.start)))
+                    a = round(x * float(900 / (self.stop - self.start)))
+                    b = round(y * float(900 / (self.stop - self.start)))
                     if self.points:
                         qp.drawLine(self.points[-1][0] + 461,  # (self.stop - self.start) // 2 + 10
                                     461 - self.points[-1][1],
@@ -114,11 +118,6 @@ class Window(QWidget):
 
     def f(self, x, name_of_function):
         return eval(name_of_function.replace('x', f'({str(x)})'))
-
-    def ball(self, a):
-        if a >= 0:
-            return int(a + 0.5)
-        return int(a - 0.5)
 
 
 if __name__ == '__main__':
