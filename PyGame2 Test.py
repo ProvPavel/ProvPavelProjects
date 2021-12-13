@@ -6,7 +6,7 @@ if __name__ == '__main__':
     size = width, height = 800, 400
     screen = pygame.display.set_mode(size)
 
-    fps = 50  # количество кадров в секунду
+    fps = 50
     clock = pygame.time.Clock()
     running = True
     while running:

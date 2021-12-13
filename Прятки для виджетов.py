@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QWidget, QApplication, QLineEdit, QComboBox,\
+from PyQt6.QtWidgets import QWidget, QApplication, QLineEdit, QComboBox, \
     QPushButton, QLCDNumber, QCheckBox, QLabel
 
 import sys
@@ -30,22 +30,22 @@ class Window(QWidget):
         self.text_1 = QLabel(self)
         self.text_1.move(45, 15)
         self.text_1.resize(75, 15)
-        self.text_1.setText('Павел')
+        self.text_1.setText('Арсений')
 
         self.text_2 = QLabel(self)
         self.text_2.move(45, 45)
         self.text_2.resize(75, 15)
-        self.text_2.setText('Андрей')
+        self.text_2.setText('Илья')
 
         self.text_3 = QLabel(self)
         self.text_3.move(45, 75)
         self.text_3.resize(75, 15)
-        self.text_3.setText('Илья')
+        self.text_3.setText('Павел')
 
         self.text_4 = QLabel(self)
         self.text_4.move(45, 105)
         self.text_4.resize(75, 15)
-        self.text_4.setText('Арсений')
+        self.text_4.setText('Андрей')
 
         self.output_value_1 = QLineEdit(self)
         self.output_value_1.move(135, 15)
