@@ -190,6 +190,7 @@ class Window(QWidget):
         if p == '2022':
             self.result.setText('Happy New Year :)')
 
+    # jcchchgc
     def paintEvent(self, event):
         qp = QPainter(self)
         qp.begin(self)
