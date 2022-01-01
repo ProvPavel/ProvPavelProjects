@@ -3,10 +3,11 @@ from PyQt5.QtWidgets import QWidget, QApplication, QLineEdit, QComboBox, \
     QPushButton, QLCDNumber, QCheckBox, QLabel
 from PyQt5.QtGui import QPainter
 import sys
+from math import pi
 
 
 class Window(QWidget):
-    def __init__(self, TEXT_COLOR=None, BACKGROUND_COLOR=None, BORDER_SIZE=None, BORDER_COLOR=None):
+    def __init__(self):
         super(Window, self).__init__()
 
         self.setWindowTitle('Калькулятор')
@@ -17,7 +18,8 @@ class Window(QWidget):
         self.result.move(25, 25)
         self.result.resize(375, 75)
         self.result.setStyleSheet('background-color: rgb(255,255,255); '
-                                  f'font-size: 10px; '
+                                  f'font-size: 30pt; '
+                                  f'color: rgb(100,155,100); '
                                   f'border: 5px solid rgb(0,0,0)')
         self.result.setDisabled(True)
 
@@ -165,14 +167,28 @@ class Window(QWidget):
                                  f'border: 5px solid rgb(0,0,0)')
         self.res_4.clicked.connect(self.count)
 
+        self.button_AC = QPushButton(self)
+        self.button_AC.move(25, 525)
+        self.button_AC.resize(75, 75)
+        self.button_AC.setText('AC')
+        self.button_AC.setStyleSheet('background-color: rgb(0,255,0); '
+                                     f'font-size: 14px; '
+                                     f'border: 5px solid rgb(0,0,0)')
+        self.button_AC.clicked.connect(self.count)
+
         self.button_res = QPushButton(self)
-        self.button_res.move(25, 525)
-        self.button_res.resize(375, 75)
+        self.button_res.move(125, 525)
+        self.button_res.resize(275, 75)
         self.button_res.setText('=')
         self.button_res.setStyleSheet('background-color: rgb(0,255,0); '
                                       f'font-size: 14px; '
                                       f'border: 5px solid rgb(0,0,0)')
         self.button_res.clicked.connect(self.count)
+
+    def hiddenEgg(self):
+        p = self.result.text()
+        if p == '2022':
+            self.result.setText('Happy New Year :)')
 
     def paintEvent(self, event):
         qp = QPainter(self)
@@ -220,8 +236,11 @@ class Window(QWidget):
             elif a == self.res_3:
                 self.result.setText(self.result.text() + '*')
 
-            elif a == self.button_C:
+            elif a == self.button_AC:
                 self.result.setText('')
+
+            elif a == self.button_C:
+                self.result.setText(self.result.text()[:-1:])
 
             elif a == self.button_0:
                 self.result.setText(self.result.text() + '0')
@@ -234,6 +253,7 @@ class Window(QWidget):
 
             elif a == self.button_res:
                 self.result.setText(str(eval(self.result.text())))
+                self.hiddenEgg()
 
         except Exception:
             self.result.setText('Error')
