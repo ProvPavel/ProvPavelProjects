@@ -1,3 +1,5 @@
-PyQT6
-pyqt6-tools
-pyqt6-stubs
+PyQT5
+pyqt5-tools
+pyqt5-stubs
+dotenv
+requests
