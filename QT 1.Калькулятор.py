@@ -1,7 +1,9 @@
-from PyQt6.QtWidgets import QWidget, QApplication, QLineEdit, QComboBox, \
+from PyQt5.QtGui import QColor
+from PyQt5.QtWidgets import QWidget, QApplication, QLineEdit, QComboBox, \
     QPushButton, QLCDNumber, QCheckBox, QLabel
-
+from PyQt5.QtGui import QPainter
 import sys
+from math import pi
 
 
 class Window(QWidget):
@@ -113,11 +115,24 @@ class Window(QWidget):
         self.res_4.setText('/')
         self.res_4.clicked.connect(self.count)
 
+        self.button_AC = QPushButton(self)
+        self.button_AC.move(25, 525)
+        self.button_AC.resize(75, 75)
+        self.button_AC.setText('AC')
+        self.button_AC.clicked.connect(self.count)
+
         self.button_res = QPushButton(self)
-        self.button_res.move(25, 525)
-        self.button_res.resize(375, 75)
+        self.button_res.move(125, 525)
+        self.button_res.resize(275, 75)
         self.button_res.setText('=')
         self.button_res.clicked.connect(self.count)
+
+    def paintEvent(self, event):
+        qp = QPainter(self)
+        qp.begin(self)
+        qp.setBrush(QColor(255, 255, 255))
+        qp.drawRect(0, 0, 425, 625)
+        qp.end()
 
     def count(self):
         try:
@@ -158,8 +173,11 @@ class Window(QWidget):
             elif a == self.res_3:
                 self.result.setText(self.result.text() + '*')
 
-            elif a == self.button_C:
+            elif a == self.button_AC:
                 self.result.setText('')
+
+            elif a == self.button_C:
+                self.result.setText(self.result.text()[:-1:])
 
             elif a == self.button_0:
                 self.result.setText(self.result.text() + '0')
