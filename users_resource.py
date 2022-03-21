@@ -2,7 +2,7 @@ from flask import jsonify
 from flask_restful import Resource, abort, reqparse
 
 
-class NewsResource(Resource):
+class UsersResource(Resource):
     def get(self, news_id):
         abort_if_news_not_found(news_id)
         session = db_session.create_session()
@@ -19,7 +19,7 @@ class NewsResource(Resource):
         return jsonify({'success': 'OK'})
 
 
-class NewsListResource(Resource):
+class UsersListResource(Resource):
     def get(self):
         session = db_session.create_session()
         news = session.query(News).all()
