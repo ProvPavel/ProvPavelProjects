@@ -3,7 +3,6 @@
 # Автор:
 ProvPavel
 # Участники:
-AndreyKuzmaDev
-Duck2006
+AndreyKuzmaDev, Duck2006
 # Описание:
 Репозиторий для обмена кодом внутри группы
