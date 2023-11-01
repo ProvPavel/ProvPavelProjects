@@ -1,29 +1,40 @@
-import pandas as pd
 import numpy as np
-from pprint import pprint
 
 
-def distance(a, b):
-    return ((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2) ** 0.5
+def gradient_descent(func, start_point, gamma, epsilon, steps):
+    hist = np.array([[0.1], [start_point]])
+    if steps:
+        for i in range(steps):
+            x_curr = hist[-1]
+            x_next = step(x_curr, gamma, func)
+            hist = np.append(hist, x_next)
+    else:
+        while True:
+            x_curr = hist[-1]
+            x_next = step(x_curr, gamma, func)
+            hist = np.append(hist, [x_next])
+            if abs(func(hist[-1]) - func(hist[-2])) < epsilon:
+                break
+    hist = np.array([[float(format(q, '.3f'))] for q in list(hist[1::])])
+    return hist
 
 
-def k_nearest_neighbors(n, k):
-    penguin = data[n]
-    res = list(range(k))
-    for i in range(k):
-        nearest = 10 ** 100
-        for j in range(len(data)):
-            w = distance(list(penguin), list(data[j]))
-            if j != n and (list(data[j]) not in res) and w < nearest:
-                res[i] = list(data[j])
-                nearest = w
-    return np.array(res)
+def grad(x, func):
+    return (func(x + 10 ** -9) - func(x)) / (10 ** -9)
 
 
-n = int(input())
-k = int(input())
-df = pd.read_csv('penguins.csv')
-df.dropna(inplace=True)
-data = np.array(df[['bill_length_mm', 'bill_depth_mm']])
-result = k_nearest_neighbors(n, k)
-pprint(*result, sep='\n')
+def step(x, lr, func):
+    return x - lr * grad(x, func)
+
+
+def f5_x(x: float) -> float:
+    return (15 * x ** 8 + 24 * x ** 5 - 75 * x ** 4 + 135 * x ** 2 - 400 * x ** 3 + 10 * x + 30) / 100
+
+
+func = f5_x
+start_point = 4
+gamma = 0.1
+epsilon = 0.05
+steps = 10
+
+print(gradient_descent(func, start_point, gamma, epsilon, steps))
